@@ -17,8 +17,6 @@ local function cachePrinters()
         cachedPrinters = {}
     end
 
-    lib.print.info(getPrinters)
-
     for x = 1, #getPrinters do
         local printergroup = getPrinters[x].group
         local decodeCoords = json.decode(getPrinters[x].coords)
@@ -63,20 +61,23 @@ function db.addPrinter(info)
     }
 
     local id = MySQL.insert.await(strings.NEW_PRINTER, {
-        info.model, json.encode(coords), info.group, json.encode({ paper = 10, ink = 100 }), info.public
+        info.model,
+        json.encode(coords),
+        info.group,
+        json.encode({ paper = 10, ink = 100 }),
+        info.public
     })
 
     if not id then
         return
     end
 
-    local printergroup = info.group
     local coords = vec4(coords.x, coords.y, coords.z, coords.w)
     local data = {
         id = id,
         model = info.model,
         coords = coords,
-        group = printergroup,
+        group = info.group,
         storage = { paper = 10, ink = 100 },
         public = info.public
     }
