@@ -189,7 +189,7 @@ local printerStashHook = exports.ox_inventory:registerHook('swapItems', function
 end, {
     print = false,
     inventoryFilter = {
-        '^printer[%w]+',
+        '^printer_[%w]+',
     }
 })
 
