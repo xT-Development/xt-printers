@@ -21,3 +21,9 @@ files {
     'configs/*.lua',
     'modules/**/*.lua'
 }
+
+dependencies {
+    'Renewed-Lib',
+    'ox_lib',
+    'ox_inventory'
+}
