@@ -192,7 +192,7 @@ end
 -- create all printers on load
 function PRINTER_UTILS.createAllPrinters()
     createdPrinters = lib.callback.await('xt-printers:server:getAllPrinters', false)
-    if not createdPrinters then return end
+    if not createdPrinters or not next(createdPrinters) then return end
 
     for id, info in pairs(createdPrinters) do
         PRINTER_UTILS.createPrinter(id, info.model, info.coords.xyz, info.coords.w, info.group, info.public)
