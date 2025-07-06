@@ -189,16 +189,18 @@ function PRINTER_UTILS.removeAllPrinters()
     for id, info in pairs(createdPrinters) do
         Renewed.removeObject(('printer_%s'):format(id))
     end
+
+    createdPrinters = {}
 end
 
 -- create all printers on load
 function PRINTER_UTILS.createAllPrinters()
     if createdPrinters and next(createdPrinters) then return end -- printers already created
 
-    createdPrinters = lib.callback.await('xt-printers:server:getAllPrinters', false)
-    if not createdPrinters or not next(createdPrinters) then return end
+    local getPrinters = lib.callback.await('xt-printers:server:getAllPrinters', false)
+    if not getPrinters or not next(getPrinters) then return end
 
-    for id, info in pairs(createdPrinters) do
+    for id, info in pairs(getPrinters) do
         PRINTER_UTILS.createPrinter(id, info.model, info.coords.xyz, info.coords.w, info.group, info.public)
     end
 end
