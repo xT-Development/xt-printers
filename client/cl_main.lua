@@ -32,7 +32,7 @@ end)
 
 -- handlers
 AddEventHandler('onResourceStart', function(resource)
-    if resource ~= GetCurrentResourceName() then return end
+    if resource ~= GetCurrentResourceName() or not NetworkIsPlayerConnected(cache.playerId)then return end
 
     Wait(500)
     PRINTER_UTILS.createAllPrinters()
